@@ -30,6 +30,10 @@ To load the image, after the delay mentioned above, read the contents of "ImageM
 # Troubleshooting
 If you receive the error "Invalid input" ensure you followed the input format. Quality requests must match the options in "Image_MSVC.py". At base this is "low", "medium", and "high, first letter being case-sensitive. Ex: "high" or "High" but not "HiGh".
 
+If you receive the error "No image found" ensure you typed the correct name as it must exactly match the image in the "Image Library" folder, minus the extension. Ex: Cat.png must be "Cat". The name may also be typed correctly, but the image was not added to the "Image Library" folder.
+
+Correct formatting for the above would be "Cat, high" or "Cat, High". If you input "Cat.png, high" you may receive a "No image found" error as there is likely no Cat.png.[filetype] in the "Image Library" folder.
+
 # Customization
 Quality presets can be added or updated as needed. In resizeByQuality() create your own if-statement followed by your choice of valid string inputs. The downscale variable is multiplied by the height and width, so it can technically be used to add "more" pixels but will not enhance visuals. A downscale value of 1 should be used for your highest preset.
 
@@ -37,8 +41,6 @@ Lines 64-67 are used for the "No image found" error and lines 87-89 are used for
 
 If you choose to use differently named folders, edit the directories from lines 10-15 to match your naming scheme. These are referenced by the rest of the program, so no other edits are needed.
 
-If you receive the error "No image found" ensure you typed the correct name as it must exactly match the image in the "Image Library" folder, minus the extension. Ex: Cat.png must be "Cat". The name may also be typed correctly, but the image was not added to the "Image Library" folder.
 
-Correct formatting for the above would be "Cat, high" or "Cat, High". If you input "Cat.png, high" you may receive a "No image found" error as there is likely no Cat.png.[filetype] in the "Image Library" folder.
 # UML Sequence Diagram
 <img width="634" height="302" alt="image" src="https://github.com/user-attachments/assets/a9417e84-4246-40e1-925c-4cb0ee0861ec" />
