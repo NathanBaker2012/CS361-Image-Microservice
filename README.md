@@ -3,6 +3,16 @@
 This microservice uses "ImageMSVCRequest.txt" as a pipeline to request, by name, an image from the "Image Library" folder be saved into the "Loaded Image" folder with updated quality settings, then uses "ImageMSVCResponse.txt" as a pipeline to respond with the full path of that file for the requesting program to use.
 
 # Setup
+In your IDE terminal install with the following (designed for Python 3+):
+
+pip install os-sys
+
+pip install pathlib
+
+pip install Pillow
+
+If using a multiple versions of Python you may need to use pipX where X is your version of Python.
+
 Download the "Image Microservice" zip file and extract the "Image Microservice v[x.x]" folder wherever you like within your project. This microservice can be used anywhere, but be sure to only extract it where other files/projects are not finicky about folder contents. Ideally this will be the root of your main project, or in parallel with the folder holding your main project.
 
 Open Image_MSVC.py and update "FILEPATH" in the "main_directory" variable to the root of the "Image Microservice" folder (include the "Image Microservice" folder). Ensure slash formatting matches document, as of now this means using double backslashes \ \ between folders.
