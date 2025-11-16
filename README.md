@@ -19,6 +19,8 @@ Open Image_MSVC.py and update "FILEPATH" in the "main_directory" variable to the
 
 In "Image Library" add all your high fidelity images. It is recommended to use a simple, but consistent and clear naming scheme.
 
+# How to use
+
 To request an image, run the Image Microservice in a dedicated terminal. Then, in your main program, write into "ImageMSVCRequest.txt" the exact name of the image without the extension, followed by a quality setting existing in "Image_MSVC.py" in a [name, quality] format. Example: "Cat, Medium". Valid default qualities are "low", "medium", and "high". Case sensitive only on first letter. Ex: "low" and "Low" are acceptable, "lOw" is an invalid input.
 
 After making a request, up to 200ms may pass before the new image is uploaded to the "Loaded Image" folder. Account for this in your main program with either a sleep function, or a re-read with a timed window to allow some wiggle room. Further updates aim to reduce this to under 100ms.
