@@ -11,19 +11,72 @@ pip install pathlib
 
 pip install Pillow
 
-Download the "Image Microservice" zip file and extract the "Image Microservice v[x.x]" folder wherever you like within your project. This microservice can be used anywhere, but be sure to only extract it where other files/projects are not finicky about folder contents. Ideally this will be the root of your main project, or in parallel with the folder holding your main project.
+1. Download the "Image Microservice" zip file and extract the "Image Microservice v[x.x]" folder wherever you like within your project. This microservice can be used anywhere, but be sure to only extract it where other files/projects are not finicky about folder contents. Ideally this will be the root of your main project, or in parallel with the folder holding your main project.
 
-Open Image_MSVC.py and update "FILEPATH" in the "main_directory" variable to the root of the "Image Microservice" folder (include the "Image Microservice" folder). Ensure slash formatting matches document, as of now this means using double backslashes \ \ between folders.
+2. Open Image_MSVC.py and update "FILEPATH" in the "main_directory" variable to the root of the "Image Microservice" folder (include the "Image Microservice" folder). Ensure slash formatting matches document, as of now this means using double backslashes \ \ between folders.
 
-In "Image Library" add all your high fidelity images. It is recommended to use a simple, but consistent and clear naming scheme.
+3. In "Image Library" add all your high fidelity images. It is recommended to use a simple, but consistent and clear naming scheme.
 
-# How to use
+# How to Request an Image
 
-To request an image, run the Image Microservice in a dedicated terminal. Then, in your main program, write into "ImageMSVCRequest.txt" the exact name of the image without the extension, followed by a quality setting existing in "Image_MSVC.py" in a [name, quality] format. Example: "Cat, Medium". Valid default qualities are "low", "medium", and "high". Case sensitive only on first letter. Ex: "low" and "Low" are acceptable, "lOw" is an invalid input.
+1. Run the Image Microservice in a dedicated terminal
+2. Create a variable to hold the name of the image you wish to request, as a string
+'''
+#Example variable assignment
+image_name = "Cat"
+'''
+4. Create a variable to hold the quality setting you wish to request, as a string
+'''
+#Example variable assignment
+quality = "Medium"
+'''
+6. In your main program, write the exact name of the image you want and the quality without the file extension into the "ImageMSVCRequest.txt". (Ex: "[IMAGENAME], [QUALITY]")
+'''
+#Example request in Python, exchange "FILEPATH" for the path you used in the Setup above.
+main_directory = "FILEPATH"
 
-After making a request, up to 200ms may pass before the new image is uploaded to the "Loaded Image" folder. Account for this in your main program with either a sleep function, or a re-read with a timed window to allow some wiggle room. Further updates aim to reduce this to under 100ms.
+image_msvc_request = main_directory + "\\ImageMSVCRequest.txt"
+image_msvc_response = main_directory + "\\ImageMSVCResponse.txt"
 
-To load the image, after the delay mentioned above, read the contents of "ImageMSVCResponse.txt" and store it. This is the full filepath of the new file, including name and extension. Use this to load the singular image stored in the "Loaded Image" folder in any way you see fit within your program.
+image_name = "Cat"
+quality = "Medium"
+
+with open(image_msvc_request, "w") as f:
+        request = image_name + ", " + quality
+        f.write(request)
+        f.close
+'''
+
+Notes:
+- Valid default qualities are "low", "medium", and "high". Case sensitive only on first letter. Ex: "low" and "Low" are acceptable, "lOw" is an invalid input.
+- After making a request, up to 200ms may pass before the new image is uploaded to the "Loaded Image" folder. Account for this in your main program with either a sleep function, or a re-read with a timed window to allow some wiggle room. Further updates aim to reduce this to under 100ms.
+
+# How to Receive an Image
+
+1. Make sure the 200ms delay mentioned previously is adhered to, then read the contents of "ImageMSVCRESPONSE.txt" and store it in a variable.
+'''
+#Wait 200ms, then open and save response.
+    time.sleep(0.2)
+    with open(image_msvc_response) as f:
+        image_MSVC_response = f.read()
+        f.close()
+'''
+3. Pull the image from the filepath and resize as needed. How you open or store this image is entirely up to you.
+'''
+if image_MSVC_response == "No image found":
+        print("Error: No image found")    
+    elif image_MSVC_response == "Invalid input":
+        print("Error: Invalid input")
+    elif image_MSVC_response:
+        image_path = image_MSVC_response
+        raw_image = Image.open(image_path)
+        resized_image = raw_image.resize((120, 150), Image.LANCZOS)
+   #Below is an example of using Tkinter to resize or display such an image. Your implementation may differ.
+        character_image = ImageTk.PhotoImage(resized_image)
+        char_img_label = tk.Label(root, image=character_image)
+        char_img_label.image = character_image
+        char_img_label.grid(row=9, column=0)
+'''
 
 # Troubleshooting
 If you receive the error "Invalid input" ensure you followed the input format. Quality requests must match the options in "Image_MSVC.py". At base this is "low", "medium", and "high, first letter being case-sensitive. Ex: "high" or "High" but not "HiGh".
