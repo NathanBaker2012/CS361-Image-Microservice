@@ -21,17 +21,17 @@ pip install Pillow
 
 1. Run the Image Microservice in a dedicated terminal
 2. Create a variable to hold the name of the image you wish to request, as a string
-'''
+```
 #Example variable assignment
 image_name = "Cat"
-'''
+```
 4. Create a variable to hold the quality setting you wish to request, as a string
-'''
+```
 #Example variable assignment
 quality = "Medium"
-'''
+```
 6. In your main program, write the exact name of the image you want and the quality without the file extension into the "ImageMSVCRequest.txt". (Ex: "[IMAGENAME], [QUALITY]")
-'''
+```
 #Example request in Python, exchange "FILEPATH" for the path you used in the Setup above.
 main_directory = "FILEPATH"
 
@@ -45,7 +45,7 @@ with open(image_msvc_request, "w") as f:
         request = image_name + ", " + quality
         f.write(request)
         f.close
-'''
+```
 
 Notes:
 - Valid default qualities are "low", "medium", and "high". Case sensitive only on first letter. Ex: "low" and "Low" are acceptable, "lOw" is an invalid input.
@@ -54,15 +54,15 @@ Notes:
 # How to Receive an Image
 
 1. Make sure the 200ms delay mentioned previously is adhered to, then read the contents of "ImageMSVCRESPONSE.txt" and store it in a variable.
-'''
+```
 #Wait 200ms, then open and save response.
     time.sleep(0.2)
     with open(image_msvc_response) as f:
         image_MSVC_response = f.read()
         f.close()
-'''
+```
 3. Pull the image from the filepath and resize as needed. How you open or store this image is entirely up to you.
-'''
+```
 if image_MSVC_response == "No image found":
         print("Error: No image found")    
     elif image_MSVC_response == "Invalid input":
@@ -76,7 +76,7 @@ if image_MSVC_response == "No image found":
         char_img_label = tk.Label(root, image=character_image)
         char_img_label.image = character_image
         char_img_label.grid(row=9, column=0)
-'''
+```
 
 # Troubleshooting
 If you receive the error "Invalid input" ensure you followed the input format. Quality requests must match the options in "Image_MSVC.py". At base this is "low", "medium", and "high, first letter being case-sensitive. Ex: "high" or "High" but not "HiGh".
