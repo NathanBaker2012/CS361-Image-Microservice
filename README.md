@@ -22,17 +22,14 @@ pip install Pillow
 1. Run the Image Microservice in a dedicated terminal
 2. Create a variable to hold the name of the image you wish to request, as a string
 ```
-#Example variable assignment
 image_name = "Cat"
 ```
 4. Create a variable to hold the quality setting you wish to request, as a string
 ```
-#Example variable assignment
 quality = "Medium"
 ```
 6. In your main program, write the exact name of the image you want and the quality without the file extension into the "ImageMSVCRequest.txt". (Ex: "[IMAGENAME], [QUALITY]")
 ```
-#Example request in Python, exchange "FILEPATH" for the path you used in the Setup above.
 main_directory = "FILEPATH"
 
 image_msvc_request = main_directory + "\\ImageMSVCRequest.txt"
@@ -55,7 +52,6 @@ Notes:
 
 1. Make sure the 200ms delay mentioned previously is adhered to, then read the contents of "ImageMSVCRESPONSE.txt" and store it in a variable.
 ```
-#Wait 200ms, then open and save response.
     time.sleep(0.2)
     with open(image_msvc_response) as f:
         image_MSVC_response = f.read()
